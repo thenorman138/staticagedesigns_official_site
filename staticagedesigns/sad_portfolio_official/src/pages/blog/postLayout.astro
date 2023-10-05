@@ -1,0 +1,62 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import PostHeader from '../../components/PostHeader.astro'
+import { Breadcrumbs, BreadcrumbsItem } from 'accessible-astro-components'
+import RelatedPosts from '../../components/RelatedPosts.astro'
+import CategoryCloud from '../../components/CategoryCloud.astro'
+import { Image } from 'astro:assets'
+
+//utils import
+import { slugify, formatDate, formatBlogPosts } from '../../js/utils'
+
+const { frontmatter } = Astro.props
+const { title, date, author, image, description, category } = frontmatter
+
+const allPosts = await Astro.glob('./*.md')
+const formattedPosts = formatBlogPosts(allPosts)
+const relatedPosts = formattedPosts
+  .filter(
+    (post) => post.frontmatter.category.toLowerCase() === category.toLowerCase() && post.frontmatter.title !== title
+  )
+  .slice(0, 3)
+---
+
+<DefaultLayout {title} {description}>
+  <PostHeader {title} {date} {author} {image} {description} {category} />
+  <div class="post-content">
+    <div class="content">
+      <slot />
+    </div>
+    <div class="sidebar">
+      <aside class="container" aria-label="Blog categories">
+        <h2>Blog Categories</h2>
+        <CategoryCloud />
+      </aside>
+      {
+        relatedPosts.length > 0 && (
+          <aside class="container" aria-label="Related posts">
+            <h2>Related Posts</h2>
+            <RelatedPosts {relatedPosts} />
+          </aside>
+        )
+      }
+    </div>
+  </div>
+</DefaultLayout>
+
+<style lang="scss">
+  ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 4rem;
+
+    @media (min-width: 550px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 2rem;
+    }
+
+    @media (min-width: 950px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

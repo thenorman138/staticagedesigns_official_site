@@ -1,0 +1,8 @@
+{
+    "title": "Static Age Desigsn",
+    "description": "A portfolio site for Hunter Norman, your favorite Web Developer",
+    "image": {
+        "src": "../../lightLogo.svg",
+        "alt": "Static Age Designs"
+    }
+}

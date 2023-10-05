@@ -1,0 +1,120 @@
+---
+import DefaultLayout from '../layouts/DefaultLayout.astro'
+import Hero from '../components/Hero.astro'
+import Feature from '../components/Feature.astro'
+import Counter from '../components/Counter.astro'
+import ContentMedia from '../components/ContentMedia.astro'
+import {
+  Accordion,
+  AccordionItem,
+  Breadcrumbs,
+  BreadcrumbsItem,
+  Card,
+  Media,
+  Modal,
+  Notification,
+  Pagination,
+} from 'accessible-astro-components'
+---
+
+<DefaultLayout title="Home">
+  <Hero />
+  <section class="my-64">
+    <div class="container">
+      <h2 class="mb-16 text-6xl">Languages & Frameworks</h2>
+      <div class="grid grid-cols-2 gap-12 md:grid-cols-2 lg:grid-cols-4">
+        <Feature icon="mdi:language-html5" title="HTML" />
+        <Feature icon="mdi:language-css3" title="CSS" />
+        <Feature icon="mdi:language-javascript" title="JavaScript (JS)" />
+        <Feature icon="mdi:language-php" title="PHP" />
+        <Feature icon="mdi:wordpress" title="WordPress" />
+        <Feature icon="mdi:language-python" title="Python" />
+        <Feature icon="mdi:database" title="SQL" />
+        <Feature icon="mdi:react" title="React" />
+        <Feature icon="mdi:react" title="React Native" />
+        <Feature icon="mdi:language-javascript" title="Astro" />
+        <Feature icon="mdi:language-javascript" title="Alpine.js (Alpine)" />
+        <Feature icon="mdi:tailwind" title="Tailwind CSS" />
+        <Feature icon="mdi:vuejs" title="Vue.js (Vue)" />
+        <Feature icon="mdi:aws" title="AWS (Amazon Web Services)" />
+        <Feature icon="mdi:github" title="GitHub" />
+        <Feature icon="mdi:octagram-outline" title="Netlify" />
+        <Feature icon="mdi:react" title="Next.js" />
+        <Feature icon="mdi:shopify" title="Shopify" />
+        <Feature icon="mdi:drupal" title="Drupal" />
+      </div>
+    </div>
+  </section>
+  <section class="mb-12 mt-32">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-32 md:grid-cols-1">
+        <div class="space-content">
+          <h2>Services</h2>
+          <Accordion>
+            <AccordionItem header="Web Design & Development">
+              <p>
+                Web presence is incredibly important and it starts with a great site or app. Maybe you want something
+                flashy? Or simple and performant? Maybe you already have something designed and you want it developed,
+                deployed and marketed? No matter the case, I'm here to help. Reach out today with your situation,
+                timeline, budget and any other details so that we can find the perfect solution.
+              </p>
+            </AccordionItem>
+            <AccordionItem header="Mobile and Web Applications">
+              <p>Apps for the table? More like Apps for your business......</p>
+            </AccordionItem>
+            <AccordionItem header="SEO and Marketing">
+              <p>
+                No, you don't just have to use Google Ads or YoastSEO. There are countless ways of achieving SEO goals
+                these days (not to mention the overwhelming number of avenues for monetizing your web traffic). No
+                single SEO or Ad platform will work for each situation and it's crucial to figure out the way to get the
+                best value for your budget and optimize your outreach. Quit letting people bleed you dry for bloated SEO
+                solutions and let me tailor a marketing solution that's just right for you.
+              </p>
+            </AccordionItem>
+            <AccordionItem header="Branding & Logo/Graphic Design">
+              <p>
+                Whether this is your first websiteor your 10th revision, it's important to remember that consistency is
+                key when it comes to branding and digital presence. Creating and re-working logos, company graphics, and
+                branding elements is often a necessary step in having the best digital presence possible.
+              </p>
+            </AccordionItem>
+            <AccordionItem header="Blog Setup">
+              <p>
+                Maybe you don't want a full-blown website and you'd just like to start a blog. I can help you get up and
+                running with something fast, clean and easy to maintain.
+              </p>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-12 mt-32">
+    <div class="container">
+      <h2 class="mb-16 text-6xl">Projects</h2>
+      <div class="grid grid-cols-1 gap-32 md:grid-cols-2 lg:grid-cols-3">
+        <Card
+          img="https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+        />
+        <Card
+          img="https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+        />
+        <Card
+          img="https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-32 mt-64">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-4">
+        <Counter count="Countless" title="Commits" sub="Merged" />
+        <Counter count="18+" title="Years" sub="Of Experience" />
+        <Counter count="4" title="Amazing" sub="Kids" />
+        <Counter count="1" title="Beautiful" sub="Wife" />
+      </div>
+    </div>
+  </section>
+</DefaultLayout>

@@ -1,0 +1,21 @@
+---
+import CallToAction from './CallToAction.astro'
+import { Icon } from 'astro-icon'
+const currentYear = new Date().getFullYear()
+---
+
+<footer>
+  <CallToAction />
+  <section class="py-8">
+    <div class="container" style="display:flex !important; justify-content: space-between;">
+      <small>
+        &copy; {currentYear} - Static Age Designs Web Agency. Contact <a href="https://github.com/markteekman"
+          >Hunter Norman</a
+        >.
+      </small>
+      <small>
+        <a href="/rss.xml"><Icon name="mdi:rss" width="20" height="20" />Subscribe to RSS</a>
+      </small>
+    </div>
+  </section>
+</footer>

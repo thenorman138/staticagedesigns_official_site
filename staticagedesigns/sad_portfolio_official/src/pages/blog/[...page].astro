@@ -1,0 +1,74 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import { Card, Pagination } from 'accessible-astro-components'
+import PostCard from '../../components/PostCard.astro'
+import CategoryCloud from '../../components/CategoryCloud.astro'
+
+import { formatBlogPosts } from '../../js/utils'
+
+export async function getStaticPaths({ paginate }) {
+  const allPosts = await Astro.glob('./*.md')
+  const formattedPosts = formatBlogPosts(allPosts)
+
+  return paginate(formattedPosts, { pageSize: 6 })
+}
+const { page } = Astro.props
+// const { post } = Astro.props
+---
+
+<DefaultLayout
+  title="Blog"
+  description="An example of a blog with dynamic content fetched from JSONPlaceholder using the title, body and userId."
+>
+  <section class="my-12">
+    <div class="space-content container">
+      <h1>Blog</h1>
+    </div>
+  </section>
+  <section class="my-12">
+    <div class="container">
+      <!-- <p class="text-sm"><em>Post {page.start + 1} through {page.end + 1} of {page.total} total posts</em></p> -->
+      <section class="container" aria-label="New Blog Posts">
+        <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+          {
+            page.data.map(
+              (post) => <PostCard frontmatter={post.frontmatter} url={post.url} />
+              // <PostCard frontmatter={allPosts[0].frontmatter} url={allPosts[0].url} />
+            )
+          }
+        </div>
+      </section>
+      <div class="mt-12 grid place-content-center">
+        <Pagination
+          firstPage={page.url.prev ? '/blog' : null}
+          previousPage={page.url.prev ? page.url.prev : null}
+          nextPage={page.url.next ? page.url.next : null}
+          lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
+          currentPage={page.currentPage}
+          totalPages={Math.round(page.total / page.size)}
+        />
+      </div>
+    </div>
+  </section>
+  <aside class="container" aria-label="Blog categories">
+    <h2>Blog Categories</h2>
+    <CategoryCloud showCount="{true}" />
+  </aside>
+</DefaultLayout>
+
+<style lang="scss">
+  ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 4rem;
+
+    @media (min-width: 550px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 2rem;
+    }
+
+    @media (min-width: 950px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

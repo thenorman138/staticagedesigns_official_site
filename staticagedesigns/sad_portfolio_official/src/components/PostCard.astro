@@ -1,0 +1,50 @@
+---
+import { Card, Pagination } from 'accessible-astro-components'
+import { slugify, formatDate } from '../js/utils'
+import { Image } from 'astro:assets'
+import Link from './Link.astro'
+
+const { frontmatter, url } = Astro.props
+const { title, date, author, image, description, category } = frontmatter
+---
+
+<!-- <pre>{JSON.stringify(frontmatter, null, 2)}</pre> -->
+<article class="post_card">
+  <small>
+    <a href={`/category/${slugify(category)}/`} class="badge">{category}</a>
+  </small>
+  <a href={url} aria-hidden="true" tabindex="-1">
+    <Image
+      width="400"
+      height="250"
+      format="webp"
+      src={image.src}
+      alt={image.alt}
+      loading="lazy"
+      fit="cover"
+      quality={80}
+      aspectRatio="5:2"
+      class="hero-image"
+    />
+  </a>
+  <div class="content">
+    <div>
+      <h2><a href={url}>{title}</a></h2>
+      <small>
+        by <a href={`/author/${slugify(author)}/`}>{author}</a> • {formatDate(date)}
+      </small>
+    </div>
+    <p>{description}</p>
+    <a class="button" href={url}> Read More</a>
+  </div>
+</article>
+
+<!-- <li>
+  <Card
+    img="https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+    title={title}
+    url={url}
+    card="test"
+    footer={description}
+  />
+</li> -->

@@ -1,0 +1,58 @@
+---
+import { slugify, formatDate } from '../../js/utils'
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import PostCard from '../../components/PostCard.astro'
+import { formatBlogPosts } from '../../js/utils'
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../blog/*.md')
+  const formattedPosts = formatBlogPosts(allPosts)
+  const allCategories = [...new Set(formattedPosts.map((post) => post.frontmatter.category).flat())]
+  return allCategories.map((category) => {
+    const categoryPosts = formattedPosts.filter((post) => post.frontmatter.category === category)
+    return {
+      params: { category: slugify(category) },
+      props: {
+        categoryName: category,
+        posts: categoryPosts,
+      },
+    }
+  })
+}
+
+const { category } = Astro.params
+const { posts, categoryName } = Astro.props
+---
+
+<DefaultLayout title={categoryName}>
+  <section class="my-12">
+    <div class="space-content container">
+      <h1>Posts About <span class="text-gradient">{categoryName}</span></h1>
+    </div>
+  </section>
+  <section class="my-12">
+    <div class="container">
+      <!-- <p class="text-sm"><em>Post {page.start + 1} through {page.end + 1} of {page.total} total posts</em></p> -->
+      <section class="container" aria-label={`Posts about ${categoryName}`}>
+        <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+          {
+            posts.map(
+              (post) => <PostCard frontmatter={post.frontmatter} url={post.url} />
+              // <PostCard frontmatter={allPosts[0].frontmatter} url={allPosts[0].url} />
+            )
+          }
+        </div>
+      </section>
+      <!-- <div class="mt-12 grid place-content-center">
+        <Pagination
+          firstPage={page.url.prev ? '/blog' : null}
+          previousPage={page.url.prev ? page.url.prev : null}
+          nextPage={page.url.next ? page.url.next : null}
+          lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
+          currentPage={page.currentPage}
+          totalPages={Math.round(page.total / page.size)}
+        />
+      </div> -->
+    </div>
+  </section>
+</DefaultLayout>
